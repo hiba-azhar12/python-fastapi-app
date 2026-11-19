@@ -1,0 +1,18 @@
+name: TMP Q5
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      full_version: ${{ steps.version.outputs.full_version }}
+    steps:
+      - name: Compute full version
+        id: version
+        run: |
+          sleep 10
+          echo "full_version=1.0.0-$(date +%F)" >> $GITHUB_OUTPUT
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show deployment target
+        run: echo "Deploying version [${{ needs.build.outputs.full_version }}]"
